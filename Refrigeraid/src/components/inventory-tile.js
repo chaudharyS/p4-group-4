@@ -43,10 +43,15 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     height: windowHeight * 0.15,
-    marginVertical: windowHeight * 0.03,
+    marginVertical: windowHeight * 0.01,
     marginHorizontal: windowWidth * 0.02,
     borderRadius: 20,
     justifyContent: 'center',
+
+    shadowColor: '#5A6CEA',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.08,
+    shadowRadius: 30,
   },
   closeButton: {
     position: 'absolute',

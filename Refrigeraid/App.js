@@ -29,7 +29,7 @@ export default () => {
   return fontsLoaded
     ? (
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
           <Tab.Screen name="Shopping List" options={{ tabBarIcon: () => { return (<ListIcon width={20} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
           <Tab.Screen name="Inventory" options={{ tabBarIcon: () => { return (<ShoppingBag width={20} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
           <Tab.Screen name="Shopping Trip" options={{ tabBarIcon: () => { return (<ShoppingCart width={20} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
