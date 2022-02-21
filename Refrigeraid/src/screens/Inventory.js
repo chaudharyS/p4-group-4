@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginHorizontal: windowWidth * 0.005,
   },  
   title: {
-    marginTop: windowHeight * 0.05,
+    marginTop: windowHeight * 0.07,
     marginLeft: windowWidth * 0.05,
     fontFamily: 'Nunito_700Bold',
     fontSize: 40,
