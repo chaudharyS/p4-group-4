@@ -14,23 +14,35 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default ({
-    foodName
+    foodName,
+    purchaseDate,
+    expireTime,
+    numPeople,
   }) => {
     return (
       <View style={styles.container}>
-        <View style={styles.imageAndText}>
-          <View>
-            <Cookie height={70} width={70} />
+        <View style={styles.imageTextIcons}>
+          <View style={styles.imageAndText}>
+            <View>
+              <Cookie height={70} width={70} />
+            </View>
+            <View style={styles.foodDescription}>
+              <Text style={styles.foodText}>{foodName}</Text>
+              <Text style={styles.purchasedText}>Purchased on {purchaseDate}</Text>
+              <Text style={styles.expireText}>Expire: {expireTime}</Text>
+            </View>
           </View>
-          <View style={styles.foodDescription}>
-            <Text style={styles.foodText}>{foodName}</Text>
-            <Text style={styles.purchasedText}>Purchased on [insert date]</Text>
-            <Text style={styles.expireText}>Expire: [insert weeks]</Text>
-          </View>
-          <View style={styles.peopleIcons}>
-            <Person1 />
-            <Person2 />
-          </View>
+          {numPeople == 2 ?
+              <View style={styles.peopleIcons}>
+                <Person1 />
+                <Person2 />
+                
+              </View>
+                :
+              <View style={styles.peopleIcons}>
+                <Person1 />
+              </View>
+            }
         </View>
         <TouchableOpacity style={styles.closeButton}>
           <CloseIcon height={12} width={12} />
@@ -53,6 +65,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 30,
   },
+  imageTextIcons: {
+    flexDirection: 'row',
+    // marginLeft: windowWidth * 0.02,
+    justifyContent: 'space-around',
+  },
   closeButton: {
     position: 'absolute',
     right: windowWidth * 0.04,
@@ -61,8 +78,9 @@ const styles = StyleSheet.create({
   peopleIcons: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginLeft: windowWidth * 0.02,
+    // marginLeft: windowWidth * 0.025,
     alignContent: 'center',
+    justifyContent: 'center',
   },
   foodText: {
     fontFamily: 'SourceSansPro_600SemiBold',
@@ -81,7 +99,8 @@ const styles = StyleSheet.create({
   },
   imageAndText: {
     flexDirection: 'row',
-    marginLeft: windowWidth * 0.02,
+    // marginLeft: windowWidth * 0.02,
+    justifyContent: 'space-around',
   },
   foodDescription: {
     flexDirection: 'column',

@@ -11,6 +11,10 @@ import {
   SourceSansPro_600SemiBold,
   SourceSansPro_400Regular,
 } from '@expo-google-fonts/source-sans-pro';
+import {
+  Inter_700Bold,
+  Inter_400Regular,
+} from '@expo-google-fonts/inter';
 import ListIcon from './src/assets/icons/Invoice.svg';
 import ShoppingBag from './src/assets/icons/Shopping-bag.svg';
 import ShoppingCart from './src/assets/icons/Shopping-cart.svg';
@@ -24,6 +28,8 @@ export default () => {
     Nunito_700Bold,
     SourceSansPro_600SemiBold,
     SourceSansPro_400Regular,
+    Inter_700Bold,
+    Inter_400Regular,
   });
 
   return fontsLoaded
