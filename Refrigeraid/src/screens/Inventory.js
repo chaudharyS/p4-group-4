@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import InventoryTile from '../components/inventory-tile';
+import InventoryTest from '../components/inventory-tile-swipeable';
 
 const STATUS = {
   GOOD: 'Good',
@@ -48,7 +49,8 @@ export default () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <InventoryTile foodName="testing food" purchaseDate="2/12/22" expireTime="1 week" numPeople={2} />
+      {/* <InventoryTile foodName="testing food" purchaseDate="2/12/22" expireTime="1 week" numPeople={2} /> */}
+      <InventoryTest />
     </View>
   )
 }

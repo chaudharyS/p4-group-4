@@ -10,6 +10,7 @@ import Cookie from '../assets/foodIcons/cookie.svg';
 import CloseIcon from '../assets/icons/close.svg';
 import Person1 from '../assets/icons/person1.svg';
 import Person2 from '../assets/icons/person2.svg';
+// import Swipeout from 'react-native-swipeout';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
@@ -20,6 +21,13 @@ export default ({
     numPeople,
   }) => {
     const [shouldRender, setShouldRender] = useState(true);
+    // const swipeButtons = [{
+    //   text: 'Delete',
+    //   backgroundColor: '#FE5D26',
+    //   underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+    //   onPress: () => { setShouldRender(false) }
+    // }];
+
     if (!shouldRender) {
       return <View />;
     }
@@ -51,7 +59,7 @@ export default ({
         <TouchableOpacity style={styles.closeButton} onPress={() => setShouldRender(false)}>
           <CloseIcon height={12} width={12} />
         </TouchableOpacity>
-      </View>
+      </View>  
     );
   };
 
