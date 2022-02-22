@@ -35,13 +35,17 @@ export default () => {
           style={currentStatus === STATUS.EXPIRED ? styles.activeStatusButton : styles.inactiveStatusButton}
           onPress={() => setCurrentStatus(STATUS.EXPIRED)}
         >
-          <Text style={currentStatus === STATUS.EXPIRED ? styles.activeStatusLabel : styles.inactiveStatusLabel}>Expired</Text>
+          <Text style={currentStatus === STATUS.EXPIRED ? styles.activeStatusLabel : styles.inactiveStatusLabel}>
+            Expired
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity 
           style={currentStatus === STATUS.EXPIRING ? styles.activeStatusButton : styles.inactiveStatusButton}
           onPress={() => setCurrentStatus(STATUS.EXPIRING)}
         >
-          <Text style={currentStatus === STATUS.EXPIRING ? styles.activeStatusLabel : styles.inactiveStatusLabel}>Expiring</Text>
+          <Text style={currentStatus === STATUS.EXPIRING ? styles.activeStatusLabel : styles.inactiveStatusLabel}>
+            Expiring
+          </Text>
         </TouchableOpacity>
       </View>
       <InventoryTile foodName="testing food" purchaseDate="2/12/22" expireTime="1 week" numPeople={2} />
@@ -60,10 +64,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'white',
     justifyContent: 'space-around',
-    height: windowHeight * 0.075,
+    height: windowHeight * 0.07,
     alignItems: 'center',
     borderRadius: 15,
-    marginHorizontal: windowWidth * 0.005,
+    marginHorizontal: windowWidth * 0.01,
+
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
   },
   activeStatusLabel: {
     alignSelf: 'center',
@@ -91,7 +100,7 @@ const styles = StyleSheet.create({
     // borderRadius: 10,
   },
   title: {
-    marginTop: windowHeight * 0.05,
+    marginTop: windowHeight * 0.06,
     marginLeft: windowWidth * 0.05,
     fontFamily: 'Nunito_700Bold',
     fontSize: 40,

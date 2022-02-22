@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Dimensions,
@@ -19,6 +19,10 @@ export default ({
     expireTime,
     numPeople,
   }) => {
+    const [shouldRender, setShouldRender] = useState(true);
+    if (!shouldRender) {
+      return <View />;
+    }
     return (
       <View style={styles.container}>
         <View style={styles.imageTextIcons}>
@@ -44,7 +48,7 @@ export default ({
               </View>
             }
         </View>
-        <TouchableOpacity style={styles.closeButton}>
+        <TouchableOpacity style={styles.closeButton} onPress={() => setShouldRender(false)}>
           <CloseIcon height={12} width={12} />
         </TouchableOpacity>
       </View>
