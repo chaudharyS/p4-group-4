@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Dimensions,
@@ -10,32 +10,56 @@ import Cookie from '../assets/foodIcons/cookie.svg';
 import CloseIcon from '../assets/icons/close.svg';
 import Person1 from '../assets/icons/person1.svg';
 import Person2 from '../assets/icons/person2.svg';
+// import Swipeout from 'react-native-swipeout';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default ({
-    foodName
+    foodName,
+    purchaseDate,
+    expireTime,
+    numPeople,
   }) => {
+    const [shouldRender, setShouldRender] = useState(true);
+    // const swipeButtons = [{
+    //   text: 'Delete',
+    //   backgroundColor: '#FE5D26',
+    //   underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+    //   onPress: () => { setShouldRender(false) }
+    // }];
+
+    if (!shouldRender) {
+      return <View />;
+    }
     return (
       <View style={styles.container}>
-        <View style={styles.imageAndText}>
-          <View>
-            <Cookie height={70} width={70} />
+        <View style={styles.imageTextIcons}>
+          <View style={styles.imageAndText}>
+            <View>
+              <Cookie height={70} width={70} />
+            </View>
+            <View style={styles.foodDescription}>
+              <Text style={styles.foodText}>{foodName}</Text>
+              <Text style={styles.purchasedText}>Purchased on {purchaseDate}</Text>
+              <Text style={styles.expireText}>Expire: {expireTime}</Text>
+            </View>
           </View>
-          <View style={styles.foodDescription}>
-            <Text style={styles.foodText}>{foodName}</Text>
-            <Text style={styles.purchasedText}>Purchased on [insert date]</Text>
-            <Text style={styles.expireText}>Expire: [insert weeks]</Text>
-          </View>
-          <View style={styles.peopleIcons}>
-            <Person1 />
-            <Person2 />
-          </View>
+          {numPeople == 2 ?
+              <View style={styles.peopleIcons}>
+                <Person1 />
+                <Person2 />
+                
+              </View>
+                :
+              <View style={styles.peopleIcons}>
+                <Person1 />
+              </View>
+            }
         </View>
-        <TouchableOpacity style={styles.closeButton}>
+        <TouchableOpacity style={styles.closeButton} onPress={() => setShouldRender(false)}>
           <CloseIcon height={12} width={12} />
         </TouchableOpacity>
-      </View>
+      </View>  
     );
   };
 
@@ -53,6 +77,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 30,
   },
+  imageTextIcons: {
+    flexDirection: 'row',
+    // marginLeft: windowWidth * 0.02,
+    justifyContent: 'space-around',
+  },
   closeButton: {
     position: 'absolute',
     right: windowWidth * 0.04,
@@ -61,8 +90,9 @@ const styles = StyleSheet.create({
   peopleIcons: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginLeft: windowWidth * 0.02,
+    // marginLeft: windowWidth * 0.025,
     alignContent: 'center',
+    justifyContent: 'center',
   },
   foodText: {
     fontFamily: 'SourceSansPro_600SemiBold',
@@ -81,7 +111,8 @@ const styles = StyleSheet.create({
   },
   imageAndText: {
     flexDirection: 'row',
-    marginLeft: windowWidth * 0.02,
+    // marginLeft: windowWidth * 0.02,
+    justifyContent: 'space-around',
   },
   foodDescription: {
     flexDirection: 'column',
