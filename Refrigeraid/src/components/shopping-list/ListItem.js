@@ -8,7 +8,7 @@ const windowHeight = Dimensions.get('window').height;
 const ListItem = ({item, addItem, editItem, deleteItem, inputValue, setInputValue}) => {
   const [text, setText] = useState('');
   return (
-    <TouchableOpacity style={styles.listItem}>
+    // <TouchableOpacity style={styles.listItem}>
       <View style={styles.listItemView}>
           {/* <Text style={styles.listItemText}>{item.text}</Text> */}
           <TextInput 
@@ -21,7 +21,7 @@ const ListItem = ({item, addItem, editItem, deleteItem, inputValue, setInputValu
           </TextInput>
           <Icon name="remove" size={20} color="firebrick" onPress={() => deleteItem(item.id)}/>
       </View>
-    </TouchableOpacity>
+    // </TouchableOpacity>
   );
 }
 
@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
         borderColor: '#eee',
     },
     listItemView: {
+        padding: 10,
+        borderBottomWidth: 0,
+        borderColor: '#eee',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
