@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Text } from 'react-native';
+import { View, Text, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
@@ -21,6 +21,7 @@ import ShoppingBag from './src/assets/icons/Shopping-bag.svg';
 import ShoppingCart from './src/assets/icons/Shopping-cart.svg';
 
 import Inventory from './src/screens/Inventory';
+import ShoppingList from './src/screens/ShoppingList'
 
 const Tab = createBottomTabNavigator();
 
@@ -37,10 +38,13 @@ export default () => {
   return fontsLoaded
     ? (
       <NavigationContainer>
+         <StatusBar
+          barStyle="dark-content"
+        />
         <Tab.Navigator screenOptions={{ headerShown: false }}>
-          <Tab.Screen name="Shopping List" options={{ tabBarIcon: ({ color }) => { return (<ListIcon width={20} color={color} />); }, tabBarActiveTintColor: '#7EBC89', tabBarInactiveTintColor: '#858C94' }} component={Inventory} />
-          <Tab.Screen name="Inventory" options={{ tabBarIcon: () => { return (<ShoppingBag width={20} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
-          <Tab.Screen name="Shopping Trip" options={{ tabBarIcon: () => { return (<ShoppingCart width={20} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
+          <Tab.Screen name="Shopping List" options={{ tabBarIcon: () => { return (<ListIcon width={30} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={ShoppingList} />
+          <Tab.Screen name="Inventory" options={{ tabBarIcon: () => { return (<ShoppingBag width={30} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
+          <Tab.Screen name="Shopping Trip" options={{ tabBarIcon: () => { return (<ShoppingCart width={30} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
         </Tab.Navigator>
       </NavigationContainer>
     ) : (

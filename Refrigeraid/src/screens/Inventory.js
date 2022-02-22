@@ -6,8 +6,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import InventoryTile from '../components/inventory-tile';
-import InventoryTest from '../components/inventory-tile-swipeable';
+import SwipeableInventoryTile from '../components/inventory-tile-swipeable';
 
 const STATUS = {
   GOOD: 'Good',
@@ -49,7 +48,7 @@ export default () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <InventoryTest />
+      <SwipeableInventoryTile />
     </View>
   )
 }
