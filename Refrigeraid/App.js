@@ -10,6 +10,7 @@ import {
 import {
   SourceSansPro_600SemiBold,
   SourceSansPro_400Regular,
+  SourceSansPro_300Light_Italic,
 } from '@expo-google-fonts/source-sans-pro';
 import {
   Inter_700Bold,
@@ -28,6 +29,7 @@ export default () => {
     Nunito_700Bold,
     SourceSansPro_600SemiBold,
     SourceSansPro_400Regular,
+    SourceSansPro_300Light_Italic,
     Inter_700Bold,
     Inter_400Regular,
   });
@@ -36,7 +38,7 @@ export default () => {
     ? (
       <NavigationContainer>
         <Tab.Navigator screenOptions={{ headerShown: false }}>
-          <Tab.Screen name="Shopping List" options={{ tabBarIcon: () => { return (<ListIcon width={20} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
+          <Tab.Screen name="Shopping List" options={{ tabBarIcon: ({ color }) => { return (<ListIcon width={20} color={color} />); }, tabBarActiveTintColor: '#7EBC89', tabBarInactiveTintColor: '#858C94' }} component={Inventory} />
           <Tab.Screen name="Inventory" options={{ tabBarIcon: () => { return (<ShoppingBag width={20} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
           <Tab.Screen name="Shopping Trip" options={{ tabBarIcon: () => { return (<ShoppingCart width={20} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
         </Tab.Navigator>

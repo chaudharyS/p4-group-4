@@ -23,15 +23,50 @@ const windowHeight = Dimensions.get('window').height;
 
 export default () => {
   const [foodData, setFoodData] = useState([
-    { foodName: 'test name', purchaseDate: '2/1/22', expireTime: '2 weeks', numPeople: 2},
-    { foodName: 'test name2', purchaseDate: '2/2/22', expireTime: '3 weeks', numPeople: 1}
+    { foodName: 'test name', purchaseDate: '2/1/22', expireTime: 'Expire: 3 weeks', numPeople: 2, isFrozen: false},
+    { foodName: 'test name2', purchaseDate: '2/2/22', expireTime: 'Expire: 3 weeks', numPeople: 1, isFrozen: false}
   ]);
 
   const Separator = () => <View style={styles.itemSeparator} />;
-  const leftSwipeActions = () => {
+  const leftSwipeActions = (foodName, isFrozen) => {
+    if (isFrozen) {
+      return (
+        <TouchableOpacity
+          style={{ backgroundColor: '#FFA800', justifyContent: 'center', alignItems: 'flex-start' }}
+          onPress={() => {
+            // find index corresponding to food in foodData and remove it
+            const ind = foodData.findIndex(food => food.foodName === foodName);
+            const foodDataCopy = [...foodData];
+            foodDataCopy[ind] = {...foodData[ind], expireTime: 'Expire: 3 weeks', isFrozen: false};
+            console.log(foodDataCopy);
+            setFoodData(foodDataCopy);
+          }}
+        >
+          <Text
+            style={{
+              color: '#FFFFFF',
+              paddingHorizontal: 10,
+              fontWeight: '600',
+              paddingHorizontal: 30,
+              paddingVertical: 20,
+            }}
+          >
+            Unfreeze
+          </Text>
+        </TouchableOpacity>
+      );
+    }
     return (
       <TouchableOpacity
         style={{ backgroundColor: '#96DAF8', justifyContent: 'center', alignItems: 'flex-start' }}
+        onPress={() => {
+          // find index corresponding to food in foodData and remove it
+          const ind = foodData.findIndex(food => food.foodName === foodName);
+          const foodDataCopy = [...foodData];
+          foodDataCopy[ind] = {...foodData[ind], expireTime: 'Frozen Item', isFrozen: true};
+          console.log(foodDataCopy);
+          setFoodData(foodDataCopy);
+        }}
       >
         <Text
           style={{
@@ -79,9 +114,9 @@ export default () => {
       </TouchableOpacity>
     );
   };
-  const ListItem = ({ foodName, purchaseDate, expireTime, numPeople }) => (
+  const ListItem = ({ foodName, purchaseDate, expireTime, numPeople, isFrozen }) => (
     <Swipeable
-      renderLeftActions={leftSwipeActions}
+      renderLeftActions={() => leftSwipeActions(foodName, isFrozen)}
       renderRightActions={() => rightSwipeActions(foodName)}
     >
       <View style={styles.itemContainer}>
@@ -93,7 +128,7 @@ export default () => {
             <View style={styles.foodDescription}>
               <Text style={styles.foodText}>{foodName}</Text>
               <Text style={styles.purchasedText}>Purchased on {purchaseDate}</Text>
-              <Text style={styles.expireText}>Expire: {expireTime}</Text>
+              <Text style={!isFrozen ? styles.expireText : styles.frozenText}>{expireTime}</Text>
             </View>
           </View>
           {numPeople == 2 ?
@@ -116,8 +151,8 @@ export default () => {
     <>
       <StatusBar />
       <SafeAreaView style={styles.container}>
-        <Text style={{ textAlign: 'center', marginVertical: 20 }}>
-          Swipe right or left
+        <Text style={{ textAlign: 'center', marginVertical: 20, fontFamily: 'SourceSansPro_300Light_Italic', color: '#858C94' }}>
+          Swipe right to delete and left to freeze/unfreeze item
         </Text>
         <FlatList
           data={foodData}
@@ -144,7 +179,8 @@ const styles = StyleSheet.create({
   },
   imageTextIcons: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
+    marginLeft: windowWidth * 0.03,
   },
   closeButton: {
     position: 'absolute',
@@ -163,6 +199,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignContent: 'center',
     justifyContent: 'center',
+    marginLeft: windowWidth * 0.07,
   },
   foodText: {
     fontFamily: 'SourceSansPro_600SemiBold',
@@ -179,13 +216,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'SourceSansPro_600SemiBold',
   },
+  frozenText: {
+    color: '#96DAF8',
+    fontSize: 18,
+    fontFamily: 'SourceSansPro_600SemiBold',
+  },
   imageAndText: {
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
   foodDescription: {
     flexDirection: 'column',
-    marginLeft: windowWidth * 0.03,
+    marginLeft: windowWidth * 0.04,
     justifyContent: 'space-between',
   }
 });

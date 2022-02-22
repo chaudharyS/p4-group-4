@@ -25,7 +25,7 @@ export default () => {
       <Text style={styles.title}>Inventory</Text>
       <View style={styles.statusBar}>
         <TouchableOpacity 
-          style={currentStatus === STATUS.GOOD ? styles.activeStatusButton : styles.inactiveStatusButton}
+          style={currentStatus === STATUS.GOOD ? styles.activeStatusButtonGood : styles.inactiveStatusButton}
           onPress={() => setCurrentStatus(STATUS.GOOD)}
         >   
           <Text style={currentStatus === STATUS.GOOD ? styles.activeStatusLabel : styles.inactiveStatusLabel}>
@@ -33,23 +33,22 @@ export default () => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity 
-          style={currentStatus === STATUS.EXPIRED ? styles.activeStatusButton : styles.inactiveStatusButton}
-          onPress={() => setCurrentStatus(STATUS.EXPIRED)}
-        >
-          <Text style={currentStatus === STATUS.EXPIRED ? styles.activeStatusLabel : styles.inactiveStatusLabel}>
-            Expired
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={currentStatus === STATUS.EXPIRING ? styles.activeStatusButton : styles.inactiveStatusButton}
+          style={currentStatus === STATUS.EXPIRING ? styles.activeStatusButtonExpiring : styles.inactiveStatusButton}
           onPress={() => setCurrentStatus(STATUS.EXPIRING)}
         >
           <Text style={currentStatus === STATUS.EXPIRING ? styles.activeStatusLabel : styles.inactiveStatusLabel}>
             Expiring
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity 
+          style={currentStatus === STATUS.EXPIRED ? styles.activeStatusButtonExpired : styles.inactiveStatusButton}
+          onPress={() => setCurrentStatus(STATUS.EXPIRED)}
+        >
+          <Text style={currentStatus === STATUS.EXPIRED ? styles.activeStatusLabel : styles.inactiveStatusLabel}>
+            Expired
+          </Text>
+        </TouchableOpacity>
       </View>
-      {/* <InventoryTile foodName="testing food" purchaseDate="2/12/22" expireTime="1 week" numPeople={2} /> */}
       <InventoryTest />
     </View>
   )
@@ -87,10 +86,24 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter_400Regular',
     fontSize: 18,
   },
-  activeStatusButton: {
+  activeStatusButtonGood: {
     height: '80%',
     width: '31%',
     backgroundColor: '#C1DBB3',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  activeStatusButtonExpiring: {
+    height: '80%',
+    width: '31%',
+    backgroundColor: '#F2C078',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  activeStatusButtonExpired: {
+    height: '80%',
+    width: '31%',
+    backgroundColor: '#FE5D26',
     justifyContent: 'center',
     borderRadius: 10,
   },
