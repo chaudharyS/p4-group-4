@@ -1,14 +1,18 @@
 import React, {useState} from 'react';
-import { Dimensions, StyleSheet, Text, View, FlatList, Alert } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, FlatList, Alert, Modal } from 'react-native';
 import {v4 as uuid} from 'uuid';
 import Header from '../components/shopping-list/Header';
 import ListItem from '../components/shopping-list/ListItem';
 import AddItem from '../components/shopping-list/AddItem';
 
+import ShoppingButton from '../components/shopping-list/shopping-button';
+import MicrophoneIcon from '../assets/icons/microphone'; 
+import CameraIcon from '../assets/icons/camera'; 
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const ShoppingList = () => {
+const ShoppingList = ({navigation}) => {
   const [items, setItems] = useState([
   ]);
   const [editId, setEdit] = useState(false);
@@ -66,10 +70,30 @@ const ShoppingList = () => {
     }
   }
 
+  const addDummyVoiceItem = () => {
+    const text = "I want to buy milk"
+    setItems(prevItems => {
+      return [{id: uuid(), text},...prevItems];
+    });
+  }
+
+  const navigateToTrip = () => {
+    navigation.navigate('Shopping Trip');
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shopping List</Text>
+      <ShoppingButton 
+        text = "Went shopping recently? Log your trip"
+        icon = {<CameraIcon />}
+        onPress = {navigateToTrip}
+      />
+      <ShoppingButton 
+        text = "You can also say what you want to add"
+        icon = {<MicrophoneIcon />}
+        onPress = {addDummyVoiceItem}
+      />
       <View style={styles.notepad}>
         <View>
         <FlatList 
