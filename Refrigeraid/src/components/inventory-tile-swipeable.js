@@ -39,14 +39,12 @@ export default (
       ],
       'Expiring': 
       [
-        { foodName: 'Cookies', purchaseDate: '2/1/22', expireTime: 'Expire: 2 days', numPeople: 2, isFrozen: false},
-        { foodName: 'Apples', purchaseDate: '2/2/22', expireTime: 'Expire: 2 days', numPeople: 1, isFrozen: false},
+        { foodName: 'Bread', purchaseDate: '2/2/22', expireTime: 'Expire: 2 days', numPeople: 1, isFrozen: false},
         { foodName: 'Eggs', purchaseDate: '2/2/22', expireTime: 'Expire: 2 days', numPeople: 1, isFrozen: false},
       ],
       'Expired': 
       [
-        { foodName: 'Cookies', purchaseDate: '2/1/22', expireTime: 'Expired', numPeople: 2, isFrozen: false},
-        { foodName: 'Apples', purchaseDate: '2/2/22', expireTime: 'Expired', numPeople: 1, isFrozen: false},
+        { foodName: 'Pasta', purchaseDate: '2/1/22', expireTime: 'Expired', numPeople: 2, isFrozen: false},
       ]
     },
   );
