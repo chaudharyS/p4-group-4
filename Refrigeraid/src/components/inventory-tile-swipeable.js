@@ -11,6 +11,10 @@ import {
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Cookie from '../assets/foodIcons/cookie.svg';
+import Egg from '../assets/foodIcons/egg.svg';
+import Bread from '../assets/foodIcons/bread.svg';
+import Apple from '../assets/foodIcons/apple.svg';
+import Pasta from '../assets/foodIcons/pasta.svg';
 import Person1 from '../assets/icons/person1.svg';
 import Person2 from '../assets/icons/person2.svg';
 
@@ -20,25 +24,50 @@ const windowHeight = Dimensions.get('window').height;
 // Tutorial for swipe found: 
 // https://blog.logrocket.com/react-native-gesture-handler-swipe-long-press-and-more/
 
+export const STATUS = {
+  GOOD: 'Good',
+  EXPIRED: 'Expired',
+  EXPIRING: 'Expiring',
+};
 
-export default () => {
-  const [foodData, setFoodData] = useState([
-    { foodName: 'test name', purchaseDate: '2/1/22', expireTime: 'Expire: 3 weeks', numPeople: 2, isFrozen: false},
-    { foodName: 'test name2', purchaseDate: '2/2/22', expireTime: 'Expire: 3 weeks', numPeople: 1, isFrozen: false}
-  ]);
+export default (
+  props,
+) => {
+  const pageStatus = props.pageStatus || 'Good';
+  const [foodData, setFoodData] = useState(
+    {
+      'Good':
+      [
+        { foodName: 'Cookies', purchaseDate: '2/1/22', expireTime: 'Expire: 3 weeks', numPeople: 2, isFrozen: false, icon: <Cookie />},
+        { foodName: 'Apples', purchaseDate: '2/2/22', expireTime: 'Expire: 3 weeks', numPeople: 1, isFrozen: false, icon: <Apple />}
+      ],
+      'Expiring': 
+      [
+        { foodName: 'Bread', purchaseDate: '2/2/22', expireTime: 'Expire: 2 days', numPeople: 1, isFrozen: false, icon: <Bread />},
+        { foodName: 'Eggs', purchaseDate: '2/2/22', expireTime: 'Expire: 2 days', numPeople: 1, isFrozen: false, icon: <Egg />},
+      ],
+      'Expired': 
+      [
+        { foodName: 'Pasta', purchaseDate: '2/1/22', expireTime: 'Expired', numPeople: 2, isFrozen: false, icon: <Pasta />},
+      ]
+    },
+  );
 
   const Separator = () => <View style={styles.itemSeparator} />;
   const leftSwipeActions = (foodName, isFrozen) => {
-    if (isFrozen) {
+    if (pageStatus === STATUS.EXPIRED) {
+      return <View />;
+    }
+    if (isFrozen && pageStatus) {
       return (
         <TouchableOpacity
           style={{ backgroundColor: '#FFA800', justifyContent: 'center', alignItems: 'flex-start' }}
           onPress={() => {
             // find index corresponding to food in foodData and remove it
-            const ind = foodData.findIndex(food => food.foodName === foodName);
-            const foodDataCopy = [...foodData];
-            foodDataCopy[ind] = {...foodData[ind], expireTime: 'Expire: 3 weeks', isFrozen: false};
-            console.log(foodDataCopy);
+            const ind = foodData[pageStatus].findIndex(food => food.foodName === foodName);
+            const foodDataCopy = {...foodData};
+            const unfrozenExpireText = pageStatus === STATUS.GOOD ? 'Expire: 3 weeks' : 'Expire: 2 days';
+            foodDataCopy[pageStatus][ind] = {...foodData[pageStatus][ind], expireTime: unfrozenExpireText, isFrozen: false};
             setFoodData(foodDataCopy);
           }}
         >
@@ -61,10 +90,9 @@ export default () => {
         style={{ backgroundColor: '#96DAF8', justifyContent: 'center', alignItems: 'flex-start' }}
         onPress={() => {
           // find index corresponding to food in foodData and remove it
-          const ind = foodData.findIndex(food => food.foodName === foodName);
-          const foodDataCopy = [...foodData];
-          foodDataCopy[ind] = {...foodData[ind], expireTime: 'Frozen Item', isFrozen: true};
-          console.log(foodDataCopy);
+          const ind = foodData[pageStatus].findIndex(food => food.foodName === foodName);
+          const foodDataCopy = {...foodData};
+          foodDataCopy[pageStatus][ind] = {...foodData[pageStatus][ind], expireTime: 'Frozen Item', isFrozen: true};
           setFoodData(foodDataCopy);
         }}
       >
@@ -92,10 +120,10 @@ export default () => {
         }}
         onPress={() => {
           // find index corresponding to food in foodData and remove it
-          const ind = foodData.findIndex(food => food.foodName === foodName);
-          const foodDataCopy = [...foodData];
+          const ind = foodData[pageStatus].findIndex(food => food.foodName === foodName);
+          const foodDataCopy = {...foodData};
           if (ind !== -1) {
-            foodDataCopy.splice(ind, 1);
+            foodDataCopy[pageStatus].splice(ind, 1);
           }
           setFoodData(foodDataCopy);
         }}
@@ -114,7 +142,7 @@ export default () => {
       </TouchableOpacity>
     );
   };
-  const ListItem = ({ foodName, purchaseDate, expireTime, numPeople, isFrozen }) => (
+  const ListItem = ({ foodName, purchaseDate, expireTime, numPeople, isFrozen, icon }) => (
     <Swipeable
       renderLeftActions={() => leftSwipeActions(foodName, isFrozen)}
       renderRightActions={() => rightSwipeActions(foodName)}
@@ -123,12 +151,20 @@ export default () => {
         <View style={styles.imageTextIcons}>
           <View style={styles.imageAndText}>
             <View>
-              <Cookie height={70} width={70} />
+              {icon}
             </View>
             <View style={styles.foodDescription}>
               <Text style={styles.foodText}>{foodName}</Text>
               <Text style={styles.purchasedText}>Purchased on {purchaseDate}</Text>
-              <Text style={!isFrozen ? styles.expireText : styles.frozenText}>{expireTime}</Text>
+              <Text 
+                style={
+                  isFrozen ? styles.frozenText 
+                  : (pageStatus === STATUS.GOOD ? styles.expireTextGood 
+                  : (pageStatus === STATUS.EXPIRING ? styles.expireTextExpiring
+                  : styles.expireTextExpired))
+                }>
+                  {expireTime}
+              </Text>
             </View>
           </View>
           {numPeople == 2 ?
@@ -152,14 +188,21 @@ export default () => {
       <StatusBar />
       <SafeAreaView style={styles.container}>
         <Text style={{ textAlign: 'center', marginVertical: 20, fontFamily: 'SourceSansPro_300Light_Italic', color: '#858C94' }}>
-          Swipe right to delete and left to freeze/unfreeze item
+          {pageStatus === STATUS.EXPIRED ? 'Swipe left to delete' : 'Swipe left to delete and right to freeze/unfreeze item'}
         </Text>
-        <FlatList
-          data={foodData}
-          keyExtractor={(item) => item.foodName}
-          renderItem={({ item }) => <ListItem {...item} />}
-          ItemSeparatorComponent={() => <Separator />}
-        />
+        {foodData[pageStatus].length > 0 ?
+          <FlatList
+            data={foodData[pageStatus]}
+            keyExtractor={(item) => item.foodName}
+            renderItem={({ item }) => <ListItem {...item} />}
+            ItemSeparatorComponent={() => <Separator />}
+          />
+          :
+          <View style={styles.noItems}>
+            <Text style={styles.noItemsText}>No {pageStatus.toLowerCase()} items!</Text>
+          </View>
+        }
+        
       </SafeAreaView>
     </>
   );
@@ -177,6 +220,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 30,
   },
+  noItems: {
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  noItemsText: {
+    alignSelf: 'center',
+    fontFamily: 'Inter_400Regular',
+    fontSize: 18,
+  }, 
   imageTextIcons: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -211,8 +263,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'SourceSansPro_400Regular',
   },
-  expireText: {
+  expireTextGood: {
     color: '#7EBC89',
+    fontSize: 18,
+    fontFamily: 'SourceSansPro_600SemiBold',
+  },
+  expireTextExpiring: {
+    color: '#F2C078',
+    fontSize: 18,
+    fontFamily: 'SourceSansPro_600SemiBold',
+  },
+  expireTextExpired: {
+    color: '#FE5D26',
     fontSize: 18,
     fontFamily: 'SourceSansPro_600SemiBold',
   },
