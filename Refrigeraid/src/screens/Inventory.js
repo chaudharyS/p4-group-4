@@ -42,9 +42,8 @@ export default () => {
             <Text style={styles.modalText}>Managing Inventory</Text>
             <Text style={styles.helpText}>• Here you can keep track of what items remain in your fridge/pantry and their freshness</Text>
             <Text style={styles.helpText}>• When you've finished all of some food item, remove it from your inventory by swiping to the left.</Text>
-            <Text style={styles.helpText}>
-            • If you decide to freeze something, mark it frozen by swiping to the right. Swipe right again to unfreeze it. Items marked frozen are stopped in their freshness countdown.
-            </Text>
+            <Text style={styles.helpText}>• The profile icons next to each item indicate who else it is shared with.</Text>
+            <Text style={styles.helpText}>• If you decide to freeze something, mark it frozen by swiping to the right. Swipe right again to unfreeze it. Items marked frozen are stopped in their freshness countdown.</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
