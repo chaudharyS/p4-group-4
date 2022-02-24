@@ -1,16 +1,38 @@
 import React, {useState} from 'react';
-import { Dimensions, StyleSheet, Text, View, FlatList, Alert } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, FlatList, Alert, Modal } from 'react-native';
 import {v4 as uuid} from 'uuid';
 import Header from '../components/shopping-list/Header';
-import ListItem from '../components/shopping-list/ListItem'
-import AddItem from '../components/shopping-list/AddItem'
+import ListItem from '../components/shopping-list/ListItem';
+import AddItem from '../components/shopping-list/AddItem';
+
+import ShoppingButton from '../components/shopping-list/shopping-button';
+import MicrophoneIcon from '../assets/icons/microphone'; 
+import CameraIcon from '../assets/icons/camera'; 
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const ShoppingList = () => {
+const ShoppingList = ({navigation}) => {
   const [items, setItems] = useState([
   ]);
+  const [editId, setEdit] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleEditChange = (id, text) => {
+    setEdit(id);
+    setInputValue(text);
+  }
+
+  const editItem = (id, text) => {
+    let editItems = items.map((item) => {
+      if (item.id == id) {
+        item.text = text
+      }
+      return item;
+    })
+    setItems(editItems);
+    setEdit(false);
+  }
 
   const deleteItem = (id) => {
     // return Alert.alert(
@@ -39,7 +61,7 @@ const ShoppingList = () => {
 
   const addItem = (text) => {
     if (!text) {
-      Alert.alert('Error', 'Please enter an item', { text: 'Ok'});
+      // Alert.alert('Error', 'Please enter an item', { text: 'Ok'});
     }
     else {
       setItems(prevItems => {
@@ -48,20 +70,52 @@ const ShoppingList = () => {
     }
   }
 
+  const addDummyVoiceItem = () => {
+    const text = "I want to buy milk"
+    setItems(prevItems => {
+      return [{id: uuid(), text},...prevItems];
+    });
+  }
+
+  const navigateToTrip = () => {
+    navigation.navigate('Shopping Trip');
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Shopping List</Text>
+      <ShoppingButton 
+        text = "Went shopping recently? Log your trip"
+        icon = {<CameraIcon />}
+        onPress = {navigateToTrip}
+      />
+      <ShoppingButton 
+        text = "You can also say what you want to add"
+        icon = {<MicrophoneIcon />}
+        onPress = {addDummyVoiceItem}
+      />
       <View style={styles.notepad}>
+        <View>
         <FlatList 
             style={styles.list}
             data={items} 
             inverted={true}
+            contentContainerStyle={{
+              flexGrow: 1, justifyContent: 'flex-end',
+            }}
             renderItem={({item}) => <ListItem item={item}
+            addItem={addItem}
+            handleEditChange={handleEditChange}
+            editItem={editItem}
+            editId={editId}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
             deleteItem={deleteItem}
         />}
         />
-        <AddItem addItem={addItem}/>
+          <AddItem style={styles.list} inputValue={inputValue} handleEditChange={handleEditChange} addItem={addItem}/>
+        </View>
+
       </View>
     </View>
   );
@@ -82,7 +136,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#FAEDCA',
       marginHorizontal: windowHeight * 0.03,
       marginVertical: windowHeight * 0.03,
-    //   height: windowHeight * 0.55,
+      height: windowHeight * 0.55,
+      justifyContent: 'flex-start',
       borderRadius: 20,
       shadowRadius: 5,
       shadowColor: 'black',
@@ -91,8 +146,8 @@ const styles = StyleSheet.create({
   },
   list: {
     marginHorizontal: windowHeight * 0.01,
-    marginVertical: windowHeight * 0.01,
-    }
+    marginTop: windowHeight * 0.01,
+    },
 });
 
 export default ShoppingList;
