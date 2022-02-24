@@ -71,7 +71,7 @@ const ShoppingList = ({navigation}) => {
   }
 
   const addDummyVoiceItem = () => {
-    const text = "I want to buy milk"
+    const text = "corn on the cob"
     setItems(prevItems => {
       return [{id: uuid(), text},...prevItems];
     });

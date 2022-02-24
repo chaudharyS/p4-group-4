@@ -17,6 +17,7 @@ const windowHeight = Dimensions.get('window').height;
 export default () => {
   const [currentStatus, setCurrentStatus] = useState(STATUS.GOOD);
   const [modalVisible, setModalVisible] = useState(false);
+  console.log('testing with icons');
   return (
     <View style={styles.container}>
       <View style={styles.titleBar}>

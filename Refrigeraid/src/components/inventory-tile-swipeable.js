@@ -11,6 +11,10 @@ import {
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import Cookie from '../assets/foodIcons/cookie.svg';
+import Egg from '../assets/foodIcons/egg.svg';
+import Bread from '../assets/foodIcons/bread.svg';
+import Apple from '../assets/foodIcons/apple.svg';
+import Pasta from '../assets/foodIcons/pasta.svg';
 import Person1 from '../assets/icons/person1.svg';
 import Person2 from '../assets/icons/person2.svg';
 
@@ -34,24 +38,27 @@ export default (
     {
       'Good':
       [
-        { foodName: 'Cookies', purchaseDate: '2/1/22', expireTime: 'Expire: 3 weeks', numPeople: 2, isFrozen: false},
-        { foodName: 'Apples', purchaseDate: '2/2/22', expireTime: 'Expire: 3 weeks', numPeople: 1, isFrozen: false}
+        { foodName: 'Cookies', purchaseDate: '2/1/22', expireTime: 'Expire: 3 weeks', numPeople: 2, isFrozen: false, icon: <Cookie />},
+        { foodName: 'Apples', purchaseDate: '2/2/22', expireTime: 'Expire: 3 weeks', numPeople: 1, isFrozen: false, icon: <Apple />}
       ],
       'Expiring': 
       [
-        { foodName: 'Bread', purchaseDate: '2/2/22', expireTime: 'Expire: 2 days', numPeople: 1, isFrozen: false},
-        { foodName: 'Eggs', purchaseDate: '2/2/22', expireTime: 'Expire: 2 days', numPeople: 1, isFrozen: false},
+        { foodName: 'Bread', purchaseDate: '2/2/22', expireTime: 'Expire: 2 days', numPeople: 1, isFrozen: false, icon: <Bread />},
+        { foodName: 'Eggs', purchaseDate: '2/2/22', expireTime: 'Expire: 2 days', numPeople: 1, isFrozen: false, icon: <Egg />},
       ],
       'Expired': 
       [
-        { foodName: 'Pasta', purchaseDate: '2/1/22', expireTime: 'Expired', numPeople: 2, isFrozen: false},
+        { foodName: 'Pasta', purchaseDate: '2/1/22', expireTime: 'Expired', numPeople: 2, isFrozen: false, icon: <Pasta />},
       ]
     },
   );
 
   const Separator = () => <View style={styles.itemSeparator} />;
   const leftSwipeActions = (foodName, isFrozen) => {
-    if (isFrozen && pageStatus !== STATUS.EXPIRED) {
+    if (pageStatus === STATUS.EXPIRED) {
+      return <View />;
+    }
+    if (isFrozen && pageStatus) {
       return (
         <TouchableOpacity
           style={{ backgroundColor: '#FFA800', justifyContent: 'center', alignItems: 'flex-start' }}
@@ -61,7 +68,6 @@ export default (
             const foodDataCopy = {...foodData};
             const unfrozenExpireText = pageStatus === STATUS.GOOD ? 'Expire: 3 weeks' : 'Expire: 2 days';
             foodDataCopy[pageStatus][ind] = {...foodData[pageStatus][ind], expireTime: unfrozenExpireText, isFrozen: false};
-            console.log(foodDataCopy);
             setFoodData(foodDataCopy);
           }}
         >
@@ -87,7 +93,6 @@ export default (
           const ind = foodData[pageStatus].findIndex(food => food.foodName === foodName);
           const foodDataCopy = {...foodData};
           foodDataCopy[pageStatus][ind] = {...foodData[pageStatus][ind], expireTime: 'Frozen Item', isFrozen: true};
-          console.log(foodDataCopy);
           setFoodData(foodDataCopy);
         }}
       >
@@ -137,7 +142,7 @@ export default (
       </TouchableOpacity>
     );
   };
-  const ListItem = ({ foodName, purchaseDate, expireTime, numPeople, isFrozen }) => (
+  const ListItem = ({ foodName, purchaseDate, expireTime, numPeople, isFrozen, icon }) => (
     <Swipeable
       renderLeftActions={() => leftSwipeActions(foodName, isFrozen)}
       renderRightActions={() => rightSwipeActions(foodName)}
@@ -146,7 +151,7 @@ export default (
         <View style={styles.imageTextIcons}>
           <View style={styles.imageAndText}>
             <View>
-              <Cookie height={70} width={70} />
+              {icon}
             </View>
             <View style={styles.foodDescription}>
               <Text style={styles.foodText}>{foodName}</Text>
@@ -183,7 +188,7 @@ export default (
       <StatusBar />
       <SafeAreaView style={styles.container}>
         <Text style={{ textAlign: 'center', marginVertical: 20, fontFamily: 'SourceSansPro_300Light_Italic', color: '#858C94' }}>
-          Swipe right to delete and left to freeze/unfreeze item
+          {pageStatus === STATUS.EXPIRED ? 'Swipe left to delete' : 'Swipe left to delete and right to freeze/unfreeze item'}
         </Text>
         {foodData[pageStatus].length > 0 ?
           <FlatList
