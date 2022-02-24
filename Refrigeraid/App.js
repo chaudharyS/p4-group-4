@@ -22,6 +22,7 @@ import ShoppingCart from './src/assets/icons/Shopping-cart.svg';
 
 import Inventory from './src/screens/Inventory';
 import ShoppingList from './src/screens/ShoppingList'
+import ShoppingTrips from './src/screens/ShoppingTrips'
 
 const Tab = createBottomTabNavigator();
 
@@ -44,7 +45,7 @@ export default () => {
         <Tab.Navigator screenOptions={{ headerShown: false }}>
           <Tab.Screen name="Shopping List" options={{ tabBarIcon: () => { return (<ListIcon width={30} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={ShoppingList} />
           <Tab.Screen name="Inventory" options={{ tabBarIcon: () => { return (<ShoppingBag width={30} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
-          <Tab.Screen name="Shopping Trip" options={{ tabBarIcon: () => { return (<ShoppingCart width={30} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={Inventory} />
+          <Tab.Screen name="Shopping Trip" options={{ tabBarIcon: () => { return (<ShoppingCart width={30} color="grey" />); }, tabBarActiveTintColor: '#7EBC89' }} component={ShoppingTrips} />
         </Tab.Navigator>
       </NavigationContainer>
     ) : (
