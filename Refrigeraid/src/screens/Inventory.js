@@ -9,13 +9,7 @@ import {
   Pressable,
   TouchableOpacity,
 } from 'react-native';
-import SwipeableInventoryTile from '../components/inventory-tile-swipeable';
-
-const STATUS = {
-  GOOD: 'Good',
-  EXPIRED: 'Expired',
-  EXPIRING: 'Expiring',
-};
+import SwipeableInventoryTile, { STATUS } from '../components/inventory-tile-swipeable';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -68,7 +62,7 @@ export default () => {
           onPress={() => setCurrentStatus(STATUS.GOOD)}
         >   
           <Text style={currentStatus === STATUS.GOOD ? styles.activeStatusLabel : styles.inactiveStatusLabel}>
-            Good
+            {STATUS.GOOD}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity 
@@ -76,7 +70,7 @@ export default () => {
           onPress={() => setCurrentStatus(STATUS.EXPIRING)}
         >
           <Text style={currentStatus === STATUS.EXPIRING ? styles.activeStatusLabel : styles.inactiveStatusLabel}>
-            Expiring
+            {STATUS.EXPIRING}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity 
@@ -84,11 +78,11 @@ export default () => {
           onPress={() => setCurrentStatus(STATUS.EXPIRED)}
         >
           <Text style={currentStatus === STATUS.EXPIRED ? styles.activeStatusLabel : styles.inactiveStatusLabel}>
-            Expired
+            {STATUS.EXPIRED}
           </Text>
         </TouchableOpacity>
       </View>
-      <SwipeableInventoryTile />
+      <SwipeableInventoryTile pageStatus={currentStatus} />
     </View>
   )
 }
