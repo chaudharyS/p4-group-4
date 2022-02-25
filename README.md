@@ -13,6 +13,9 @@ Hanlin Wang: hzwus
 * `cd Refrigeraid` and run `expo start`
 * Download the Expo Go app on your mobile device or run in an IOS simulator (this was developed using iPhone 13 Pro)
 
+### Demo Video
+https://photos.app.goo.gl/vKcTrczsBL3RM7Q37
+
 ### References
 Tutorial for swipe tile: https://blog.logrocket.com/react-native-gesture-handler-swipe-long-press-and-more/
 
