@@ -3,5 +3,16 @@
 ## High(er) Fidelty Prototype
 
 GitHub usernames for each team member:
+Srishti Chaudhary: chaudharyS
+Sanjana Goli: sanjanagoli
+Ke Lou: fpoon777
+Hanlin Wang: hzwus
 
-*Please replace this text with any additional comments you have about the assignment, your repository structure, etc.*
+### Setup
+* Clone this repo
+* `cd Refrigeraid` and run `expo start`
+* Download the Expo Go app on your mobile device or run in an IOS simulator (this was developed using iPhone 13 Pro)
+
+### References
+Tutorial for swipe tile: https://blog.logrocket.com/react-native-gesture-handler-swipe-long-press-and-more/
+
