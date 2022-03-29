@@ -1,11 +1,13 @@
 # CS 67/267 - Introduction to HCI (Winter 2022) 
+We created a mobile applictaion to help people living in shared living spaces (college students, bachelors, etc) better manage their groceries, and fridge space. More details can be found on the project website mentioned below.
+
 ## High(er) Fidelty Prototype
 
 GitHub usernames for each team member:
-Srishti Chaudhary: chaudharyS
-Sanjana Goli: sanjanagoli
-Ke Lou: fpoon777
-Hanlin Wang: hzwus
+- Srishti Chaudhary: chaudharyS
+- Sanjana Goli: sanjanagoli
+- Ke Lou: fpoon777
+- Hanlin Wang: hzwus
 
 ### Setup
 * Clone this repo
