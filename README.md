@@ -13,6 +13,9 @@ Hanlin Wang: hzwus
 * `cd Refrigeraid` and run `expo start`
 * Download the Expo Go app on your mobile device or run in an IOS simulator (this was developed using iPhone 13 Pro)
 
+###Project Website
+https://refrigeraid.wixsite.com/refrigeraid
+
 ### Demo Video
 https://photos.app.goo.gl/vKcTrczsBL3RM7Q37
 
